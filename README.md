@@ -7,7 +7,6 @@ A production-ready Next.js 15+ boilerplate with best practices for modern full-s
 - **Database:** Drizzle ORM + Neon PostgreSQL
 - **UI:** shadcn/ui + Tailwind CSS
 - **Auth:** Clerk
-- **Payments:** Stripe
 - **Background Jobs:** Inngest
 - **Deployment:** Vercel
 
@@ -67,4 +66,3 @@ pnpm db-push # Run migrations
 - [Drizzle ORM](https://orm.drizzle.team/docs)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Clerk](https://clerk.com/docs)
-- [Stripe](https://stripe.com/docs)
