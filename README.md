@@ -15,7 +15,7 @@ A production-ready Next.js 15+ boilerplate with best practices for modern full-s
 - [Colima](https://github.com/abiosoft/colima)
 - [Docker](https://www.docker.com/)
 - [pnpm](https://pnpm.io/)
-
+- [Biome](https://biomejs.dev/)
 
 ## Project Structure
 ```
@@ -28,8 +28,14 @@ lib/         # Utilities & API clients
 ```
 
 ## Getting Started
-Run the set up script using the following command:
+1. Clone the repository
 ```bash
+git clone https://github.com/sergiosegrera/boilerplate.git
+```
+
+2. Run the set up script using the following command:
+```bash
+cd boilerplate
 pnpm boilerplate
 ```
 
