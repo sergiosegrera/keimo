@@ -1,0 +1,202 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Guidelines
+
+You are an expert TypeScript developer specializing in modern full-stack applications. Follow these guidelines strictly when generating code.
+
+## Tech Stack Requirements
+- **Framework**: Next.js (15.3+) with App Router (required)
+- **Database**: Drizzle ORM + Neon PostgreSQL
+- **UI**: shadcn/ui + Tailwind CSS
+- **Auth**: Clerk authentication
+- **Payments**: Stripe integration
+- **Background Jobs**: Inngest for async operations
+- **Deployment**: Vercel
+
+## Project Structure (Mandatory)
+```
+├── app/                    # Next.js App Router pages/layouts
+│   ├── (auth)/            # Route groups for organization
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   └── ui/                # shadcn/ui components only
+├── core/                  # Business logic by domain
+│   ├── *.core.ts         # Server functions exposed to frontend
+├── db/
+│   ├── client.ts         # Database client setup
+│   ├── schema/
+│   │   ├── index.ts
+│   │   └── *.schema.ts   # Database table schemas
+│   └── *.db.ts          # Domain-specific DB operations
+├── lib/                  # Utilities & external API clients
+│   ├── utils.ts
+│   ├── openai/
+│   └── stripe/
+├── prompts/              # AI prompt templates
+├── types/
+│   └── *.type.ts        # Zod type definitions
+```
+
+## Critical Coding Rules
+
+### 1. Named Arguments Pattern (MANDATORY)
+**ALL backend functions MUST use named arguments (args object pattern)**
+
+```typescript
+// CORRECT - Named arguments
+const getUser = async (args: { user_id: string }) => {
+  const { user_id } = args;
+  // implementation
+};
+
+// WRONG - Positional arguments
+const getUser = async (user_id: string) => {
+  // implementation
+};
+```
+
+### 2. Type Definitions with Zod
+Always define types using Zod schemas in `types/*.type.ts`:
+
+- Use snake_case for object properties (keys)
+
+```typescript
+import z from "zod/v4";
+
+export const PostStatus = z.enum(["generating", "error", "complete"]);
+export type PostStatus = z.infer<typeof PostStatus>;
+
+export const PostBase = z.object({
+  post_id: z.string().uuid(),
+  user_id: z.string().nullable(),
+  name: z.string(),
+  tags: z.array(z.string()).default([]),
+  is_public: z.boolean().default(false),
+  created_at: z.coerce.date(),
+  updated_at: z.coerce.date(),
+});
+
+// Use discriminated unions for complex state management
+export const Post = z.discriminatedUnion("post_status", [
+  PostProcessing,
+  PostError,
+  PostComplete,
+]);
+
+export type Post = z.infer<typeof Post>;
+```
+
+### 3. Server Functions Pattern
+All server functions in `core/*.core.ts` must:
+- Use `"use server"` directive
+- Handle authentication with Clerk
+- Use named arguments
+
+```typescript
+"use server";
+import { currentUser } from "@clerk/nextjs/server";
+import db from "@/db";
+
+const getCredits = async () => {
+  const user = await currentUser();
+  if (!user) throw new Error("User not found");
+  
+  const { credits } = await db.user.getUserCreditsByUserId({
+    user_id: user.id,
+  });
+  
+  return Number(credits);
+};
+
+export { getCredits };
+```
+
+### 4. Database Operations
+All database operations in `db/*.db.ts` must:
+- Use Drizzle ORM with TypeScript-first approach
+- Use named arguments pattern
+- Include proper error handling
+- Use snake_case for column/table names
+
+```typescript
+import { eq } from "drizzle-orm";
+import { db } from "./client";
+import { userTable } from "./schema";
+
+const getUser = async (args: { user_id: string }) => {
+  const { user_id } = args;
+  
+  const [user] = await db
+    .select()
+    .from(userTable)
+    .where(eq(userTable.user_id, user_id));
+    
+  if (!user) {
+    throw new Error("User not found");
+  }
+  
+  return user;
+};
+
+export { getUser };
+```
+
+### 5. Database Schema Patterns
+Define schemas in `db/schema/*.schema.ts`:
+
+```typescript
+import { pgTable, text, numeric, timestamp } from "drizzle-orm/pg-core";
+
+export const userTable = pgTable("user", {
+  user_id: text("user_id").primaryKey(), // clerk id
+  stripe_customer_id: text("stripe_customer_id"),
+  credits: numeric().notNull(),
+  updated_at: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  created_at: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+```
+
+## Code Organization Rules
+
+1. **Separation of Concerns**: Keep business logic in `core/`, database operations in `db/`, and types in `types/`
+2. **Server Functions**: Use for type-safe client-server communication
+3. **Database Layer**: Abstract all database operations into dedicated functions
+4. **Type Safety**: Always use Zod for runtime validation and TypeScript types
+5. **Authentication**: Always check user authentication for non public server functions
+
+## File Naming Conventions
+- `*.core.ts` - Business logic and server functions
+- `*.db.ts` - Database operations
+- `*.type.ts` - Zod type definitions
+- `*.schema.ts` - Database table schemas
+
+## Import Patterns
+```typescript
+// Types
+import { Post, type PostStatus } from "@/types/post.type";
+
+// Database operations
+import db from "@/db";
+
+// Server functions
+import { getCredits } from "@/core/user.core";
+
+// External libraries
+import { currentUser } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
+```
+
+## Key Requirements
+- Always use named arguments for backend functions
+- Use Zod for all type definitions
+- Use snake_case for internal objects
+- Always validate user authentication in server functions
+- Follow the exact project structure

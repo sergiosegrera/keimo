@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# boilerplate
 
-## Getting Started
+A production-ready Next.js 15+ boilerplate with best practices for modern full-stack SaaS apps.
 
-First, run the development server:
+## Tech Stack
+- **Framework:** Next.js App Router
+- **Database:** Drizzle ORM + Neon PostgreSQL
+- **UI:** shadcn/ui + Tailwind CSS
+- **Auth:** Clerk
+- **Payments:** Stripe
+- **Background Jobs:** Inngest
+- **Deployment:** Vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Requirements
+- [Colima](https://github.com/abiosoft/colima)
+- [Docker](https://www.docker.com/)
+- [pnpm](https://pnpm.io/)
+
+
+## Project Structure
+```
+app/         # Next.js App Router
+components/  # shadcn/ui components
+core/        # Business logic (server functions)
+db/          # Drizzle ORM & schema
+types/       # Zod type definitions
+lib/         # Utilities & API clients
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Getting Started
+Run the set up script using the following command:
+```bash
+pnpm boilerplate
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm boilerplate # Run the set up script
 
-## Learn More
+pnpm dev # Start the development server
 
-To learn more about Next.js, take a look at the following resources:
+pnpm build # Build the app
+pnpm start # Start the app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+pnpm db-start # Start the db
+pnpm db-stop # Stop the db
+pnpm db-psql # Open the psql shell
+pnpm db-push # Run migrations
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## TODO
+- [ ] Add your own [favicon](https://realfavicongenerator.net/)
+- [ ] Add your own metadata
+- [ ] Add your own banner image (/public/banner.png)
+- [ ] Add your own llms.txt
+- [ ] Update the terms and privacy pages
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Docs
+- [Next.js](https://nextjs.org/docs)
+- [Drizzle ORM](https://orm.drizzle.team/docs)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Clerk](https://clerk.com/docs)
+- [Stripe](https://stripe.com/docs)

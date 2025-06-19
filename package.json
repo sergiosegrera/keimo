@@ -3,22 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "boilerplate": "./start.sh",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "biome lint",
+    "db-push": "drizzle-kit push",
+    "db-start": "colima start --disk 10 --vm-type=vz && docker-compose up -d",
+    "db-stop": "docker-compose down && colima stop",
+    "db-psql": "psql postgres://postgres:postgres@localhost:5432/postgres"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.22.0",
+    "@neondatabase/serverless": "^1.0.1",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@types/ws": "^8.18.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
+    "lucide-react": "^0.517.0",
+    "next": "15.3.4",
+    "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "tailwind-merge": "^3.3.1",
+    "ws": "^8.18.2",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@biomejs/biome": "2.0.0",
+    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "drizzle-kit": "^0.31.1",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3",
+    "tw-animate-css": "^1.3.4",
+    "typescript": "^5"
   }
 }
