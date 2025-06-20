@@ -50,6 +50,8 @@ pnpm start # Start the app
 
 pnpm shadcn [COMPONENT] # Add a new shadcn/ui component
 
+pnpm inngest-start # Start the inngest server
+
 pnpm db-start # Start the db
 pnpm db-stop # Stop the db
 pnpm db-psql # Open the psql shell

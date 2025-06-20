@@ -15,10 +15,12 @@ printf "\n--- What are we building? ---\n"
 
 git remote remove origin
 
+read -p "Enter the id of your app (lowercase, no spaces): " APPLICATION_ID
 read -p "Enter the name of your app: " APP_NAME
 read -p "Enter the contact email: " APP_CONTACT_EMAIL
 read -p "Enter the URL of your app: " APP_URL
 
+sed -i '' "s|export const APPLICATION_ID = \".*\";|export const APPLICATION_ID = \"$APPLICATION_ID\";|" lib/constants.ts
 sed -i '' "s|export const APP_NAME = \".*\";|export const APP_NAME = \"$APP_NAME\";|" lib/constants.ts
 sed -i '' "s|export const APP_CONTACT_EMAIL = \".*\";|export const APP_CONTACT_EMAIL = \"$APP_CONTACT_EMAIL\";|" lib/constants.ts
 sed -i '' "s|export const APP_URL = \".*\";|export const APP_URL = \"$APP_URL\";|" lib/constants.ts
