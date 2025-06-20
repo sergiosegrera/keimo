@@ -1,7 +1,12 @@
+import { InvalidConfigError } from "@/lib/errors";
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { WebSocket } from "ws";
 import * as schema from "./schema";
+
+if (!process.env.DATABASE_URL) {
+  throw new InvalidConfigError("DATABASE_URL is not set");
+}
 
 if (process.env.NODE_ENV === "production") {
   neonConfig.webSocketConstructor = WebSocket;
