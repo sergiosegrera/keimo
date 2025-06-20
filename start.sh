@@ -13,6 +13,8 @@ printf "  _           _ _                 _       _
 
 printf "\n--- What are we building? ---\n"
 
+git remote remove origin
+
 read -p "Enter the name of your app: " APP_NAME
 read -p "Enter the contact email: " APP_CONTACT_EMAIL
 read -p "Enter the URL of your app: " APP_URL
@@ -42,8 +44,11 @@ printf "\n--- Starting the db ---\n"
 printf "\nby the way, it can be stopped with pnpm db-stop\n"
 pnpm db-start
 
+printf "\n--- Generating migrations ---\n"
+pnpm db-generate
+
 printf "\n--- Running migrations ---\n"
-pnpm db-push
+pnpm db-migrate
 
 printf "\n--- Clerk Environment Setup ---\n"
 # Ask the user if they want to set up Clerk right now

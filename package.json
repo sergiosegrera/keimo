@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "biome lint",
     "db-push": "drizzle-kit push",
+    "db-generate": "drizzle-kit generate",
+    "db-migrate": "drizzle-kit migrate",
     "db-start": "colima start --disk 10 --vm-type=vz && docker-compose up -d",
     "db-stop": "docker-compose down && colima stop",
     "db-psql": "psql postgres://postgres:postgres@localhost:5432/postgres"

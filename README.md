@@ -51,7 +51,10 @@ pnpm start # Start the app
 pnpm db-start # Start the db
 pnpm db-stop # Stop the db
 pnpm db-psql # Open the psql shell
-pnpm db-push # Run migrations
+
+pnpm db-generate # Generate migrations
+pnpm db-migrate # Run migrations
+pnpm db-push # Push migrations
 ```
 
 ## TODO
