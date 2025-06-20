@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint",
+    "shadcn": "pnpm dlx shadcn@latest add",
     "db-push": "drizzle-kit push",
     "db-generate": "drizzle-kit generate",
     "db-migrate": "drizzle-kit migrate",
