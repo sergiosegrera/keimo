@@ -30,7 +30,7 @@ export default function Nav() {
       <Suspense>
         <SignedOut>
           <div className="flex items-center gap-1">
-            <Button variant="outline" className="rounded-full" asChild>
+            <Button variant="outline" asChild>
               <SignUpButton />
             </Button>
             <Button asChild>

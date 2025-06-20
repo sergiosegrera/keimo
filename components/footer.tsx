@@ -31,10 +31,7 @@ export default function Footer() {
             Contact
           </a>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-muted-foreground flex flex-row gap-1 items-center">
-            Made with ❤️ by {APP_NAME}
-          </p>
+        <div className="flex flex-col gap-2 items-center">
           <p className="text-xs">
             &copy; 2025 {APP_NAME}. All rights reserved.
           </p>
