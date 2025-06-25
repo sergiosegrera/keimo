@@ -30,8 +30,8 @@ touch .env.local
 
 echo "DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres" >> .env.local
 
-echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=/auth/sign-in" >> .env.local
-echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=/auth/sign-up" >> .env.local
+echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in" >> .env.local
+echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up" >> .env.local
 
 echo "NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/app" >> .env.local
 echo "NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/app" >> .env.local
