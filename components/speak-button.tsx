@@ -24,7 +24,7 @@ export default function SpeakButton({ className }: { className?: string }) {
 
   useEffect(() => {
     recorder.onSound(async (sound) => {
-      if (!user?.id) {
+      if (!user?.id || !audioRef.current) {
         return;
       }
 
@@ -38,16 +38,16 @@ export default function SpeakButton({ className }: { className?: string }) {
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
 
-      const audio = new Audio(response);
-      audioRef.current = audio;
+      audioRef.current.src = response;
+      audioRef.current.autoplay = true;
 
       setState("speaking");
 
-      audio.addEventListener("ended", () => {
+      audioRef.current.addEventListener("ended", () => {
         setState("idle");
       });
 
-      await audio.play();
+      await audioRef.current.play();
     });
   }, [recorder.onSound, setState, user?.id]);
 
@@ -65,6 +65,12 @@ export default function SpeakButton({ className }: { className?: string }) {
     // Change the state to listening
     if (state === "idle") {
       setState("listening");
+
+      if (!audioRef.current) {
+        audioRef.current = new Audio();
+        audioRef.current.autoplay = true;
+      }
+
       recorder.start();
     }
 
