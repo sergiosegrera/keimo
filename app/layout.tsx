@@ -5,6 +5,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import { APP_NAME, APP_URL } from "@/lib/constants";
+import UserProvider from "./_components/user-provider";
+import QueryProvider from "./_components/query-client-provider";
+import KeimoProvider from "./_components/keimo-provider";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -63,9 +66,10 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${instrumentSerif.variable} antialiased flex flex-col min-h-screen`}
         >
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          {/* <Nav /> */}
+          {/* <main className="flex-1">{children}</main> */}
+          {/* <Footer /> */}
+          {children}
         </body>
       </html>
     </ClerkProvider>

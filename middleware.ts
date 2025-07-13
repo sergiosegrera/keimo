@@ -1,6 +1,15 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export default clerkMiddleware();
+const protectedRoutes = createRouteMatcher(["/chat"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (protectedRoutes(req)) {
+    auth.protect();
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
