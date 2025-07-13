@@ -13,7 +13,7 @@ export default function Camera() {
     setImage,
     takePicture: takePictureFromKeimo,
   } = useKeimo();
-  const { user } = useUser();
+  const user = useUser();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -71,7 +71,7 @@ export default function Camera() {
         const base64Audio = reader.result as string;
         await sendMessage({
           audio: base64Audio,
-          user_id: user.id,
+          user_id: user.user_id,
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           image: image,
         });
