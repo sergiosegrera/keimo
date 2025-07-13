@@ -96,7 +96,7 @@ export default function SpeakButton({ className }: { className?: string }) {
       type="button"
       className={cn(
         "h-16 w-16 flex justify-center items-center bg-primary border-2 border-muted transition-colors duration-200 ease-in rounded-full cursor-pointer",
-        state === "listening" && "bg-red-500",
+        state === "listening" && "bg-blue-500",
         state === "thinking" && "bg-purple-500",
         className,
       )}

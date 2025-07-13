@@ -4,7 +4,7 @@ import { APP_CONTACT_EMAIL, APP_NAME } from "@/lib/constants";
 
 export default function Footer() {
   return (
-    <section className="py-16 justify-center items-center flex">
+    <section className="py-16 justify-center items-center flex bg-white rounded-xl border-2 border-gray-100 m-4">
       <footer className="container flex flex-col items-center justify-center text-center text-sm text-muted-foreground gap-6">
         <Link className="flex items-center gap-1" href="/">
           {/* <Image src="/icon1.png" alt={APP_NAME} width={48} height={48} /> */}
