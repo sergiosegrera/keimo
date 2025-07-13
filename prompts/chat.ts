@@ -1,4 +1,4 @@
-import { type GoogleGenerativeAIProviderOptions, google } from "@ai-sdk/google";
+import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 
 const TASK = `You are Keimo, a friendly half-bear half-fox character who loves helping kids with their questions and comments.

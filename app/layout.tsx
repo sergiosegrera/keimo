@@ -64,7 +64,7 @@ export default async function RootLayout({
           <meta name="apple-mobile-web-app-title" content={APP_NAME} />
         </head>
         <body
-          className={`${inter.variable} ${instrumentSerif.variable} antialiased flex flex-col min-h-screen`}
+          className={`${inter.variable} ${instrumentSerif.variable} antialiased flex flex-col min-h-screen bg-sky-100`}
         >
           {/* <Nav /> */}
           {/* <main className="flex-1">{children}</main> */}

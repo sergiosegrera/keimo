@@ -2,6 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
+import { DotStream, DotPulse } from "ldrs/react";
+import "ldrs/react/DotStream.css";
+import "ldrs/react/DotPulse.css";
+
+// Default values shown
 import useAudioRecorder from "@/lib/audio-recorder";
 import { useKeimo } from "@/app/_components/keimo-provider";
 import type { KeimoStatus } from "@/app/_components/keimo-provider";
@@ -78,9 +83,9 @@ export default function SpeakButton({ className }: { className?: string }) {
   const renderIcon = (state: KeimoStatus) => {
     switch (state) {
       case "listening":
-        return <MicIcon className="w-4 h-4 text-white" />;
+        return <DotStream size="24" speed="2.5" color="white" />;
       case "thinking":
-        return <Loader2Icon className="w-4 h-4 text-white animate-spin" />;
+        return <DotPulse size="24" speed="2.5" color="white" />;
       default:
         return <MicIcon className="w-4 h-4 text-white" />;
     }
@@ -90,7 +95,7 @@ export default function SpeakButton({ className }: { className?: string }) {
     <button
       type="button"
       className={cn(
-        "h-16 w-16 flex justify-center items-center bg-green-500 border-2 border-muted transition-colors duration-200 ease-in rounded-md",
+        "h-16 w-16 flex justify-center items-center bg-primary border-2 border-muted transition-colors duration-200 ease-in rounded-full cursor-pointer",
         state === "listening" && "bg-red-500",
         state === "thinking" && "bg-purple-500",
         className,

@@ -1,7 +1,7 @@
 "use server";
 
 import { google } from "@ai-sdk/google";
-import { openai } from "@ai-sdk/openai";
+// import { openai } from "@ai-sdk/openai";
 import { waitUntil } from "@vercel/functions";
 import { embed } from "ai";
 import { DateTime } from "luxon";
@@ -12,7 +12,7 @@ import { SAVE_MEMORY_PROMPT } from "@/prompts/save-memory";
 
 // import { TRANSCRIBE_PROMPT } from "@/prompts/transcribe";
 
-const TRANSCRIPTION_MODEL = openai.transcription("whisper-1");
+// const TRANSCRIPTION_MODEL = openai.transcription("whisper-1");
 const VOICE_MODEL_ID = "Fahco4VZzobUeiPqni1S";
 
 export const sendMessage = async (args: {
