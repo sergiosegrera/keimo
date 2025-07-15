@@ -19,8 +19,13 @@ export const sendMessage = async (args: {
   audio: string;
   user_id: string;
   timezone: string;
+  image?: string;
 }) => {
-  const { audio, user_id, timezone } = args;
+  const { audio, user_id, timezone, image } = args;
+
+  if (image) {
+    console.log("Image received:", image.substring(0, 100));
+  }
 
   const timer = performance.now();
   // const url = new URL(audio);

@@ -14,6 +14,12 @@ export type KeimoStatus = z.infer<typeof KeimoStatus>;
 type KeimoState = {
   state: KeimoStatus;
   setState: (state: KeimoStatus) => void;
+  isCameraOpen: boolean;
+  openCamera: () => void;
+  closeCamera: () => void;
+  takePicture: () => void;
+  image: string | null;
+  setImage: (image: string | null) => void;
 };
 
 const KeimoContext = createContext<KeimoState | null>(null);
@@ -34,6 +40,29 @@ export default function KeimoProvider({
   children: React.ReactNode;
 }) {
   const [state, setState] = useState<KeimoStatus>("idle");
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [image, setImage] = useState<string | null>(null);
 
-  return <KeimoContext value={{ state, setState }}>{children}</KeimoContext>;
+  const openCamera = () => setIsCameraOpen(true);
+  const closeCamera = () => setIsCameraOpen(false);
+  const takePicture = () => {
+    // This will be implemented in the Camera component
+  };
+
+  return (
+    <KeimoContext.Provider
+      value={{
+        state,
+        setState,
+        isCameraOpen,
+        openCamera,
+        closeCamera,
+        takePicture,
+        image,
+        setImage,
+      }}
+    >
+      {children}
+    </KeimoContext.Provider>
+  );
 }
