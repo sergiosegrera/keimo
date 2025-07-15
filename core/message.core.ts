@@ -51,10 +51,13 @@ export const sendMessage = async (args: {
 
   console.log("User Message", message);
 
+  const now = DateTime.now().setZone(timezone).toJSDate();
+
   // 2. Query Previous Messages
   const getMessages = async () => {
     const previousMessages = await db.message.getPrevious({
       user_id,
+      date: now,
     });
 
     // Display date in iso (yyyy-mm-dd hh:mm) format
@@ -109,7 +112,7 @@ export const sendMessage = async (args: {
       user_id,
       message,
       role: "user",
-      created_at: DateTime.now().setZone(timezone).toJSDate(),
+      created_at: now,
     });
 
     console.log("Saved Message", Number(performance.now() - timer).toFixed(2));
@@ -130,7 +133,7 @@ export const sendMessage = async (args: {
     coreMemories,
     memories,
     message,
-    currentDate: DateTime.now().setZone(timezone).toJSDate(),
+    currentDate: now,
   });
 
   console.log("Response", response);
@@ -185,7 +188,7 @@ export const sendMessage = async (args: {
             user_id,
             content: result.memory,
             core_memory_slot: result.core_memory_index,
-            created_at: DateTime.now().setZone(timezone).toJSDate(),
+            created_at: now,
           });
 
           return;
@@ -200,12 +203,19 @@ export const sendMessage = async (args: {
           user_id,
           content: result.memory,
           embedding: embedding.embedding,
-          created_at: DateTime.now().setZone(timezone).toJSDate(),
+          created_at: now,
         });
       }
     };
 
-    await Promise.all([saveAssistantMessage(), saveMemory()]);
+    await Promise.all([
+      saveAssistantMessage(),
+      saveMemory(),
+      db.message.deleteExpired({
+        user_id,
+        date: now,
+      }),
+    ]);
   };
 
   waitUntil(save());

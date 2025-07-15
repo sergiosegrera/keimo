@@ -44,6 +44,10 @@ export default function useAudioRecorder() {
           onSoundCallback.current(base64data);
         }
       };
+
+      mediaRecorder.current?.removeEventListener("stop", () => {
+        mediaRecorder.current = null;
+      });
     });
 
     mediaRecorder.current?.stop();
